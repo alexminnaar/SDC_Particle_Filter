@@ -50,6 +50,8 @@ public:
 	// Destructor
 	~ParticleFilter() {}
 
+	double distance(double x_1, double y_1, double x_2, double y_2);
+
 	/**
 	 * init Initializes particle filter by initializing particles to Gaussian
 	 *   distribution around first position and all the weights to 1.
