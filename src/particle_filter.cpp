@@ -45,8 +45,8 @@ void ParticleFilter::init(double x, double y, double theta, double std[])
 
     //create noise distributions - zero mean gaussian
     normal_distribution<double> dist_x(0, std_x);
-    normal_distribution<double> dist_y(0, std_x);
-    normal_distribution<double> dist_theta(0, std_x);
+    normal_distribution<double> dist_y(0, std_y);
+    normal_distribution<double> dist_theta(0, std_psi);
 
     //create particles
     for (int i = 0; i < num_particles; i++)
