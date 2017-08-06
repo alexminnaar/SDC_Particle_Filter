@@ -91,15 +91,10 @@ void ParticleFilter::prediction(double delta_t, double std_pos[], double velocit
         //predict x and y positions based on motion model
         //TODO add gaussian noise
 
-        if(fabs(yaw_rate) < 0.00001){
-            particles[i].x += velocity*delta_t*cos(theta);
-            particles[i].y += velocity*delta_t*sin(theta);
-        }
-        else{
-            particles[i].x += (velocity / yaw_rate) * (sin(theta + yaw_rate * delta_t) - sin(theta));
-            particles[i].y+=(velocity / yaw_rate) * (cos(theta) - cos(theta + yaw_rate * delta_t));
-            particles[i].theta += yaw_rate*delta_t;;
-        }
+        particles[i].x += (velocity / yaw_rate) * (sin(theta + yaw_rate * delta_t) - sin(theta));
+        particles[i].y+=(velocity / yaw_rate) * (cos(theta) - cos(theta + yaw_rate * delta_t));
+        particles[i].theta += yaw_rate*delta_t;;
+        
         
         //Add some noise
         particles[i].x +=  noise_x(gen);
@@ -171,7 +166,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
             int landmark_id = map_landmarks.landmark_list[i].id_i;
             float landmark_x = map_landmarks.landmark_list[i].x_f;
-            float landmark_y = map_landmarks.landmark_list[i].x_f;
+            float landmark_y = map_landmarks.landmark_list[i].y_f;
 
             //check if the landmark is within the range for this particle
             if(fabs(p.x - landmark_x) <= sensor_range && fabs(p.y - landmark_y)<=sensor_range){
